@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Educativo de Física</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="EstiloMenu.css">
+</head>
+<body>
+
+    <!-- Inicio del menú principal -->
+    <main class="menu-principal">
+
+        <!-- Fondo decorativo -->
+        <div class="fondo-animado">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- Header principal -->
+        <header class="container text-center encabezado-menu">
+            <p class="etiqueta-superior">
+                <i class="bi bi-stars"></i>
+                Laboratorio Virtual de Física
+            </p>
+
+            <h1>Simulador Educativo de Movimiento</h1>
+
+            <p class="subtitulo">
+                Explora conceptos de física mediante simulaciones visuales, interactivas y fáciles de usar.
+            </p>
+        </header>
+
+        <!-- Contenedor de cards -->
+        <section class="container contenedor-cards">
+
+            <div class="row g-4 justify-content-center">
+
+                <!-- Inicio Card 1 -->
+                <article class="col-12 col-md-6 col-lg-3">
+                    <div class="card-simulador card-mru" data-modulo="MRU y MRUV">
+                        <div class="icono-card">
+                            <i class="bi bi-car-front-fill"></i>
+                        </div>
+
+                        <h2>MRU y MRUV</h2>
+
+                        <p>
+                            Simula movimientos rectilíneos uniformes y uniformemente variados.
+                        </p>
+
+                        <div class="datos-card">
+                            <span>Velocidad</span>
+                            <span>Aceleración</span>
+                            <span>Tiempo</span>
+                        </div>
+
+                        <a href="IndexMruMruv.html" class="btn-ingresar">
+                            Ingresar
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+                <!-- Fin Card 1 -->
+
+                <!-- Inicio Card 2 -->
+               <article class="col-12 col-md-6 col-lg-3">
+                    <div class="card-simulador card-caida" data-modulo="Caída Libre">
+                        <div class="icono-card">
+                            <i class="bi bi-arrow-down-circle-fill"></i>
+                        </div>
+
+                        <h2>Caída Libre</h2>
+
+                        <p>
+                            Analiza objetos en movimiento bajo la aceleración de la gravedad.
+                        </p>
+
+                        <div class="datos-card">
+                            <span>Gravedad</span>
+                            <span>Altura</span>
+                            <span>Impacto</span>
+                        </div>
+
+                        <a href="IndexCaidaLibre.html" class="btn-ingresar">
+                            Ingresar
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+                <!-- Fin Card 2 -->
+
+                <!-- Inicio Card 3 -->
+               <article class="col-12 col-md-6 col-lg-3">
+                    <div class="card-simulador card-tiro" data-modulo="Tiro Parabólico">
+                      <div class="icono-card icono-emoji">
+    <span>↗️</span>
+</div>
+
+                        <h2>Tiro Parabólico</h2>
+
+                        <p>
+                            Visualiza trayectorias y movimientos en dos dimensiones.
+                        </p>
+
+                        <div class="datos-card">
+                            <span>Ángulo</span>
+                            <span>Alcance</span>
+                            <span>Trayectoria</span>
+                        </div>
+
+                        <a href="IndexTiroParabolico.html" class="btn-ingresar">
+                            Ingresar
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+                <!-- Fin Card 3 -->
+
+
+
+<!-- Inicio Card 4 -->
+<article class="col-12 col-md-6 col-lg-3">
+    <div class="card-simulador card-mcuv" data-modulo="MCUV">
+        <div class="icono-card">
+            <i class="bi bi-bullseye"></i>
+        </div>
+
+        <h2>Movimiento Circular Uniformemente Acelerado</h2>
+
+        <p>
+            Visualiza un movimiento circular con radio, ángulo, periodo y aceleración angular.
+        </p>
+
+        <div class="datos-card">
+            <span>Ángulo</span>
+            <span>Radio</span>
+            <span>Periodo</span>
+        </div>
+
+        <a href="IndexMcuv.html" class="btn-ingresar">
+            Ingresar
+            <i class="bi bi-arrow-right"></i>
+        </a>
+    </div>
+</article>
+<!-- Fin Card 4 -->
+
+
+
+
+
+
+
+
+
+            </div>
+
+        </section>
+
+        <!-- Panel informativo dinámico -->
+        <section class="container panel-info">
+            <div class="info-activa">
+                <i class="bi bi-info-circle"></i>
+                <p id="textoModulo">
+                    Pasa el cursor sobre un módulo para ver una breve descripción.
+                </p>
+            </div>
+        </section>
+
+    </main>
+    <!-- Fin del menú principal -->
+
+    <!-- Inicio del footer -->
+    <footer class="footer-menu">
+        <section>
+            <h3>Proyecto de Física</h3>
+            <p>Agregar información aquí</p>
+        </section>
+
+        <section>
+            <h3>Integrantes</h3>
+            <p>Agregar integrantes</p>
+        </section>
+
+        <section>
+            <h3>Recursos</h3>
+            <ul>
+                <li><a href="#">Agregar enlaces</a></li>
+                <li><a href="#">Agregar enlaces</a></li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Contacto</h3>
+            <p>Agregar información aquí</p>
+        </section>
+    </footer>
+    <!-- Fin del footer -->
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JS personalizado -->
+    <script src="LogicaMenu.js"></script>
+</body>
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulación MRU y MRUV</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- CSS propio -->
+    <link rel="stylesheet" href="EstiloMruMruv.css">
+</head>
+<body>
+
+    <header class="container py-4">
+        <h1>Simulación MRU y MRUV</h1>
+        <p>Simulador interactivo de movimientos rectilíneos.</p>
+        <a href="IndexMenu.html" class="btn btn-outline-primary">Volver al menú</a>
+    </header>
+
+    <main class="container">
+
+        <!-- Inicio escenario -->
+        <section class="escenario mb-4">
+            <div class="hud-tiempo">
+                Tiempo: <span id="tiempo">0.00</span> s
+            </div>
+
+            <div class="cielo">
+                <div class="nube nube-1">☁️</div>
+                <div class="nube nube-2">☁️</div>
+            </div>
+
+            <div class="montanas">
+                ⛰️ ⛰️ ⛰️
+            </div>
+
+            <div class="carretera" id="carretera">
+                <!-- Vehículo principal / Coche A -->
+<div id="vehiculo" class="vehiculo">
+    <span class="carro-icono">🚗</span>
+    <span id="velocidadVehiculo">0 m/s</span>
+</div>
+
+                <!-- Vehículo B para modo persecución -->
+<div id="vehiculoB" class="vehiculo vehiculo-b">
+    <span class="carro-icono">🚙</span>
+    <span id="velocidadVehiculoB">0 m/s</span>
+</div>
+            </div>
+
+            <div class="escala">
+                <div class="linea-escala" id="lineaEscala"></div>
+            </div>
+        </section>
+        <!-- Fin escenario -->
+
+        <!-- Inicio selector de modos -->
+        <section class="mb-4">
+            <h2>Modo de simulación</h2>
+
+            <div class="d-flex flex-wrap gap-2">
+                <button class="btn btn-primary modo-activo" id="modoClasico" type="button">
+                    Clásico
+                </button>
+
+                <button class="btn btn-outline-primary" id="modoPersecucion" type="button">
+                    Persecución
+                </button>
+            </div>
+        </section>
+        <!-- Fin selector de modos -->
+
+        <!-- Inicio controles principales -->
+        <section class="mb-4">
+            <h2>Controles</h2>
+
+            <div class="d-flex flex-wrap gap-2">
+                <button class="btn btn-success" id="btnIniciar" type="button">
+                    Iniciar
+                </button>
+
+                <button class="btn btn-secondary" id="btnPausar" type="button">
+                    Pausar
+                </button>
+
+                <button class="btn btn-danger" id="btnReiniciar" type="button">
+                    Reiniciar
+                </button>
+
+                <button class="btn btn-warning" id="btnGraficas" type="button">
+                    Ver Gráficas
+                </button>
+            </div>
+        </section>
+        <!-- Fin controles principales -->
+
+        <!-- Inicio panel de configuración modo clásico -->
+        <section class="card p-4 mb-4" id="panelClasico">
+            <h2>Configuración MRU / MRUV</h2>
+
+            <div class="mb-3">
+                <label for="posicionInicial" class="form-label">Posición inicial</label>
+                <input type="range" class="form-range" id="posicionInicial" min="-500" max="500" value="0">
+
+                <div class="control-numerico">
+                    <label for="valorPosicion">Valor:</label>
+                    <input type="number" class="input-valor" id="valorPosicion" min="-500" max="500" value="0">
+                    <span class="unidad">m</span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="velocidadInicial" class="form-label">Velocidad inicial</label>
+                <input type="range" class="form-range" id="velocidadInicial" min="0" max="50" value="0">
+
+                <div class="control-numerico">
+                    <label for="valorVelocidad">Valor:</label>
+                    <input type="number" class="input-valor" id="valorVelocidad" min="0" max="50" value="0">
+                    <span class="unidad">m/s</span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="aceleracion" class="form-label">Aceleración</label>
+                <input type="range" class="form-range" id="aceleracion" min="-10" max="10" value="0">
+
+                <div class="control-numerico">
+                    <label for="valorAceleracion">Valor:</label>
+                    <input type="number" class="input-valor" id="valorAceleracion" min="-10" max="10" value="0">
+                    <span class="unidad">m/s²</span>
+                </div>
+            </div>
+        </section>
+        <!-- Fin panel de configuración modo clásico -->
+
+        <!-- Inicio panel de configuración modo persecución -->
+        <section class="card p-4 mb-4 d-none" id="panelPersecucion">
+            <h2>Configuración modo persecución</h2>
+
+            <div class="row g-4">
+                <!-- Inicio configuración coche A -->
+                <article class="col-12 col-lg-6">
+                    <div class="card p-3 h-100">
+                        <h3>Coche A</h3>
+
+                        <div class="mb-3">
+                            <label for="posicionInicialA" class="form-label">Posición inicial</label>
+                            <input type="range" class="form-range" id="posicionInicialA" min="-500" max="500" value="0">
+
+                            <div class="control-numerico">
+                                <label for="valorPosicionA">Valor:</label>
+                                <input type="number" class="input-valor" id="valorPosicionA" min="-500" max="500" value="0">
+                                <span class="unidad">m</span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="velocidadInicialA" class="form-label">Velocidad inicial</label>
+                            <input type="range" class="form-range" id="velocidadInicialA" min="0" max="50" value="0">
+
+                            <div class="control-numerico">
+                                <label for="valorVelocidadA">Valor:</label>
+                                <input type="number" class="input-valor" id="valorVelocidadA" min="0" max="50" value="0">
+                                <span class="unidad">m/s</span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="aceleracionA" class="form-label">Aceleración</label>
+                            <input type="range" class="form-range" id="aceleracionA" min="-10" max="10" value="0">
+
+                            <div class="control-numerico">
+                                <label for="valorAceleracionA">Valor:</label>
+                                <input type="number" class="input-valor" id="valorAceleracionA" min="-10" max="10" value="0">
+                                <span class="unidad">m/s²</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <!-- Fin configuración coche A -->
+
+                <!-- Inicio configuración coche B -->
+                <article class="col-12 col-lg-6">
+                    <div class="card p-3 h-100">
+                        <h3>Coche B</h3>
+
+                        <div class="mb-3">
+                            <label for="posicionInicialB" class="form-label">Posición inicial</label>
+                            <input type="range" class="form-range" id="posicionInicialB" min="-500" max="500" value="0">
+
+                            <div class="control-numerico">
+                                <label for="valorPosicionB">Valor:</label>
+                                <input type="number" class="input-valor" id="valorPosicionB" min="-500" max="500" value="0">
+                                <span class="unidad">m</span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="velocidadInicialB" class="form-label">Velocidad inicial</label>
+                            <input type="range" class="form-range" id="velocidadInicialB" min="0" max="50" value="0">
+
+                            <div class="control-numerico">
+                                <label for="valorVelocidadB">Valor:</label>
+                                <input type="number" class="input-valor" id="valorVelocidadB" min="0" max="50" value="0">
+                                <span class="unidad">m/s</span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="aceleracionB" class="form-label">Aceleración</label>
+                            <input type="range" class="form-range" id="aceleracionB" min="-10" max="10" value="0">
+
+                            <div class="control-numerico">
+                                <label for="valorAceleracionB">Valor:</label>
+                                <input type="number" class="input-valor" id="valorAceleracionB" min="-10" max="10" value="0">
+                                <span class="unidad">m/s²</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <!-- Fin configuración coche B -->
+            </div>
+        </section>
+        <!-- Fin panel de configuración modo persecución -->
+
+        <!-- Inicio pantalla flotante de gráficas -->
+        <section class="pantalla-graficas" id="pantallaGraficas">
+            <div class="contenido-graficas">
+                <div class="encabezado-graficas">
+                    <h2>Gráficas de la simulación</h2>
+
+                    <button type="button" id="btnCerrarGraficas">
+                        Cerrar
+                    </button>
+                </div>
+
+                <div class="area-graficas">
+                    <article class="grafica-placeholder">
+                        <h3>Gráfica Posición - Tiempo</h3>
+                        <div class="grafica-simulada">
+                            <canvas id="graficaPosicion"></canvas>
+                        </div>
+                    </article>
+
+                    <article class="grafica-placeholder">
+                        <h3>Gráfica Velocidad - Tiempo</h3>
+                        <div class="grafica-simulada">
+                            <canvas id="graficaVelocidad"></canvas>
+                        </div>
+                    </article>
+
+                    <article class="grafica-placeholder">
+                        <h3>Gráfica Aceleración - Tiempo</h3>
+                        <div class="grafica-simulada">
+                            <canvas id="graficaAceleracion"></canvas>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <!-- Fin pantalla flotante de gráficas -->
+
+
+
+<!-- Inicio fórmulas MRU y MRUV -->
+<section class="card p-4 mb-4">
+    <h2>Fórmulas utilizadas</h2>
+
+    <div class="row g-3">
+
+        <!-- Inicio fórmulas MRU -->
+        <article class="col-12 col-lg-6">
+            <div class="formula-card">
+                <h3>MRU - Movimiento Rectilíneo Uniforme</h3>
+
+                <div class="formula-principal">
+                    x = v · t
+                </div>
+
+                <p>Posición:</p>
+                <div class="formula-secundaria">
+                    x = x₀ + v · t
+                </div>
+
+                <p>Velocidad constante:</p>
+                <div class="formula-secundaria">
+                    v = x / t
+                </div>
+
+                <p>Aceleración:</p>
+                <div class="formula-secundaria">
+                    a = 0
+                </div>
+            </div>
+        </article>
+        <!-- Fin fórmulas MRU -->
+
+        <!-- Inicio fórmulas MRUV -->
+        <article class="col-12 col-lg-6">
+            <div class="formula-card">
+                <h3>MRUV - Movimiento Rectilíneo Uniformemente Variado</h3>
+
+                <p>Posición:</p>
+                <div class="formula-principal">
+                    x = x₀ + v₀ · t + ½ · a · t²
+                </div>
+
+                <p>Velocidad final:</p>
+                <div class="formula-secundaria">
+                    v<sub>f</sub> = v₀ + a · t
+                </div>
+
+                <p>Velocidad final al cuadrado:</p>
+                <div class="formula-secundaria">
+                    v<sub>f</sub>² = v₀² + 2 · a · x
+                </div>
+
+                <p>Aceleración:</p>
+                <div class="formula-secundaria">
+                    a = (v<sub>f</sub> - v₀) / t
+                </div>
+            </div>
+        </article>
+        <!-- Fin fórmulas MRUV -->
+
+    </div>
+</section>
+<!-- Fin fórmulas MRU y MRUV -->
+
+
+
+    </main>
+
+    <footer class="container py-4">
+        <p>Proyecto educativo de Física - Agregar información aquí</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- JavaScript propio -->
+    <script src="LogicaMruMruv.js"></script>
+</body>
+</html>
